@@ -286,7 +286,8 @@ fields.forEach(id => $(id).addEventListener('input', () => { if ($('err-' + id))
 /* ---------- envío ---------- */
 const fmtDate = d => new Date(d).toLocaleString('es-VE', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
 async function send(rec) {
-  const ctrl = new AbortController(); const t = setTimeout(() => ctrl.abort(), 15000);
+  // FormSubmit tarda varios segundos en responder: margen amplio antes de dar el envío por perdido
+  const ctrl = new AbortController(); const t = setTimeout(() => ctrl.abort(), 40000);
   try {
     const res = await fetch(ENDPOINT, {
       method: 'POST', signal: ctrl.signal,
